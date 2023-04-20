@@ -9,6 +9,7 @@ jobs:
     docker:
       - image: cimg/node:18.15-browsers
     resource_class: small
+    parallelism: 4
     steps:
       - checkout
       - node/install-packages:
@@ -16,7 +17,7 @@ jobs:
       - browser-tools/install-chrome
       - run:
           name: Run tests
-          command: npm test
+          command: npm run test:split
 
 workflows:
   sample:
