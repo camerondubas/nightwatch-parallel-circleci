@@ -17,7 +17,12 @@ jobs:
       - browser-tools/install-chrome
       - run:
           name: Run tests
-          command: npm run test:split
+          command: |
+            ALL_TEST_FILES=$(npx nightwatch --list-files | jq -r '.default | join("\n")')
+            echo "ALL_TEST_FILES=$ALL_TEST_FILES"
+            SPLIT_TEST_FILES=$(echo "$ALL_TEST_FILES" | circleci tests split)
+            echo "SPLIT_TEST_FILES=$SPLIT_TEST_FILES"
+            npm test $SPLIT_TEST_FILES
 
 workflows:
   sample:

@@ -6,9 +6,8 @@
   "author": "Cameron Dubas <camerondubas@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "nightwatch ./nightwatch",
-    "test:split": "yarn list | circleci tests split | xargs nightwatch",
-    "list": "nightwatch --list-files | jq -r '.default|join(\"\n\")'"
+    "test": "nightwatch",
+    "list": "nightwatch --list-files"
   },
   "dependencies": {
     "nightwatch": "^2.6.20"
