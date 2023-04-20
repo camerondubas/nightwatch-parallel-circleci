@@ -1,0 +1,25 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+  browser-tools: circleci/browser-tools@1.4.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/node:18.15-browsers
+    resource_class: small
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - run:
+          name: Run tests
+          command: npm test
+
+workflows:
+  sample:
+    jobs:
+      - build-and-test

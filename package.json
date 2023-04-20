@@ -5,6 +5,9 @@
   "repository": "https://github.com/camerondubas/nightwatch-parallel-circleci.git",
   "author": "Cameron Dubas <camerondubas@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "nightwatch ./nightwatch"
+  },
   "dependencies": {
     "nightwatch": "^2.6.20"
   },
