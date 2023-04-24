@@ -18,7 +18,9 @@ jobs:
       - run:
           name: Run tests
           command: |
-            ALL_TEST_FILES=$(npx nightwatch --list-files | jq -r '.default | join("\n")')
+            FILES_JSON=$(npx nightwatch --list-files)
+            echo "FILES_JSON=$FILES_JSON"
+            ALL_TEST_FILES=$(echo $FILES_JSON | jq -r '.default | join("\n")')
             echo "ALL_TEST_FILES=$ALL_TEST_FILES"
             SPLIT_TEST_FILES=$(echo "$ALL_TEST_FILES" | circleci tests split)
             echo "SPLIT_TEST_FILES=$SPLIT_TEST_FILES"
