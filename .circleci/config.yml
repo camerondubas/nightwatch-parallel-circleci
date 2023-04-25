@@ -48,10 +48,12 @@ jobs:
             PARTITION_TEST_FILES=$(echo "$ALL_TEST_FILES" | circleci tests split)
             npm test $PARTITION_TEST_FILES
 
-      - run: ls -a tests_output
+      - run:
+          command: ls -a tests_output
+          when: always
 
       - store_test_results:
-          path: tests_output/nightwatch
+          path: tests_output
 
 workflows:
   sample:
