@@ -19,6 +19,7 @@ jobs:
           name: Run tests
           command: |
             echo "Running tests"
+            pwd
             echo $(npx nightwatch)
             FILES_JSON=$(npx nightwatch --list-files)
             echo "FILES_JSON=$FILES_JSON"
