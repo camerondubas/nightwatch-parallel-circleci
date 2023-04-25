@@ -6,8 +6,8 @@
   "author": "Cameron Dubas <camerondubas@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "nightwatch",
-    "list": "nightwatch --list-files"
+    "build": "rm -rf ./dist && tsc",
+    "test": "nightwatch"
   },
   "dependencies": {
     "nightwatch": "^2.6.20"
