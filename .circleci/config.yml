@@ -19,6 +19,7 @@ jobs:
           name: Run tests
           command: |
             echo "Running tests"
+            echo $(npx nightwatch)
             FILES_JSON=$(npx nightwatch --list-files)
             echo "FILES_JSON=$FILES_JSON"
             ALL_TEST_FILES=$(echo $FILES_JSON | jq -r '.default | join("\n")')
