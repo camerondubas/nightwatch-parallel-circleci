@@ -23,7 +23,6 @@ jobs:
       - run: mkdir -p workspace
       - run: mv ./dist ./workspace
       - run: ls
-      - run: ls ./dist
 
 
       - persist_to_workspace:
