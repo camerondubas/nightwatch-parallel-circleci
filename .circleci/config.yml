@@ -5,7 +5,25 @@ orbs:
   browser-tools: circleci/browser-tools@1.4.1
 
 jobs:
-  build-and-test:
+  build:
+    docker:
+      - image: cimg/node:18.15-browsers
+    resource_class: small
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+
+      - run:
+          name: Build
+          command: npm run build
+
+      - persist_to_workspace:
+          root: ./workspace
+          paths:
+            - dist
+
+  test:
     docker:
       - image: cimg/node:18.15-browsers
     resource_class: small
@@ -14,19 +32,24 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: npm
+
       - browser-tools/install-chrome
+
+      - attach_workspace:
+          at: ./workspace
+
       - run:
           name: Run tests
           command: |
-            FILES_JSON=$(npx nightwatch --list-files)
-            echo "FILES_JSON=$FILES_JSON"
-            ALL_TEST_FILES=$(echo $FILES_JSON | jq -r '.default | join("\n")')
-            echo "ALL_TEST_FILES=$ALL_TEST_FILES"
-            SPLIT_TEST_FILES=$(echo "$ALL_TEST_FILES" | circleci tests split)
-            echo "SPLIT_TEST_FILES=$SPLIT_TEST_FILES"
-            npm test $SPLIT_TEST_FILES
+            TEST_FILES_JSON=$(npx nightwatch --list-files)
+            ALL_TEST_FILES=$(echo $TEST_FILES_JSON | jq -r '.default | join("\n")')
+            PARTITION_TEST_FILES=$(echo "$ALL_TEST_FILES" | circleci tests split)
+            npm test $PARTITION_TEST_FILES
 
 workflows:
   sample:
     jobs:
-      - build-and-test
+      - build
+      - test:
+          requires:
+            - build
