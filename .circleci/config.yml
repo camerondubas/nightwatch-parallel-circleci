@@ -19,7 +19,7 @@ jobs:
           command: npm run build
 
       - persist_to_workspace:
-          root: ./workspace
+          root: ./dist
           paths:
             - dist
 
@@ -36,7 +36,7 @@ jobs:
       - browser-tools/install-chrome
 
       - attach_workspace:
-          at: ./workspace
+          at: ./dist
 
       - run:
           name: Run tests
