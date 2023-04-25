@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
+    "build:ci": "tsc --outDir workspace/dist",
     "test": "nightwatch"
   },
   "dependencies": {

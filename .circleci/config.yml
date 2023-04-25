@@ -16,7 +16,7 @@ jobs:
 
       - run:
           name: Build
-          command: npm run build --outDir ./workspace/dist
+          command: npm run build:ci
 
       - persist_to_workspace:
           root: ./workspace
